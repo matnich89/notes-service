@@ -47,7 +47,7 @@ func (a *App) DefineRoutingAndServe(h *handler.Handler) {
 	a.logger.OutputInfo("Define Routing...")
 
 	a.router.Use(a.logRequest)
-	a.router.HandleFunc("/api/note", h.PostNote)
+	a.router.HandleFunc("/api/note", h.PostNote).Methods(http.MethodPost)
 
 	a.logger.OutputInfo("Started up successfully!")
 
