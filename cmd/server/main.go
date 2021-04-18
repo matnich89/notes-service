@@ -19,5 +19,5 @@ func main() {
 	}
 	noteHandler := handler.NewHandler(note.NewService(database), globalLogger)
 	app.DefineRouting(noteHandler)
-
+	app.Start()
 }

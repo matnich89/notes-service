@@ -6,6 +6,7 @@ import (
 	"notes-service/internal/helper"
 	"notes-service/internal/logger"
 	"notes-service/internal/note"
+	"notes-service/pkg"
 )
 
 type Handler struct {
@@ -37,6 +38,6 @@ func (h *Handler) PostNote(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(200)
-	_ = json.NewEncoder(w).Encode(newNote)
+	_ = json.NewEncoder(w).Encode(pkg.NewNoteDto(&newNote))
 
 }

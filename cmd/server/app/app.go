@@ -57,7 +57,7 @@ func (a *App) DefineRouting(h *handler.Handler) {
 	a.logger.OutputInfo("Started up successfully!")
 }
 
-func (a *App) startServer() {
+func (a *App) Start() {
 	_ = http.ListenAndServe(":8080", a.router)
 }
 
