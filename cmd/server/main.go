@@ -18,5 +18,6 @@ func main() {
 		fmt.Println("Could not start")
 	}
 	noteHandler := handler.NewHandler(note.NewService(database), globalLogger)
-	app.DefineRoutingAndServe(noteHandler)
+	app.DefineRouting(noteHandler)
+
 }

@@ -42,14 +42,25 @@ func (a *App) DefineDatabase() (*gorm.DB, error) {
 	return initDatabase, nil
 }
 
-func (a *App) DefineRoutingAndServe(h *handler.Handler) {
+func (a *App) DefineRouting(h *handler.Handler) {
 
 	a.logger.OutputInfo("Define Routing...")
 
 	a.router.Use(a.logRequest)
 	a.router.HandleFunc("/api/note", h.PostNote).Methods(http.MethodPost)
 
-	a.logger.OutputInfo("Started up successfully!")
+	a.router.HandleFunc("/api/health", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+		w.WriteHeader(http.StatusOK)
+	})
 
+	a.logger.OutputInfo("Started up successfully!")
+}
+
+func (a *App) startServer() {
 	_ = http.ListenAndServe(":8080", a.router)
+}
+
+func (a *App) GetRouter() *mux.Router {
+	return a.router
 }
