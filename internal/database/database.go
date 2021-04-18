@@ -9,7 +9,6 @@ import (
 
 func InitDatabase() (*gorm.DB, error) {
 
-	fmt.Println("Setting up new db connection....")
 	dbUsername := os.Getenv("DB_USERNAME")
 	dbPassword := os.Getenv("DB_PASSWORD")
 	dbHost := os.Getenv("DB_HOST")

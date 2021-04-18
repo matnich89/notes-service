@@ -14,10 +14,16 @@ type Note struct {
 	Owner uint
 }
 
+func NewService(db *gorm.DB) *Service {
+	return &Service{
+		DB: db,
+	}
+}
+
 type NoteService interface {
 	GetNote(ID uint) (Note, error)
-	GetNotesByTheme(theme string, owner uint) ([]Note, error)
-	PostNote(note Note)
+	//GetNotesByTheme(theme string, owner uint) ([]Note, error)
+	//PostNote(note Note)
 }
 
 func (s *Service) GetNote(ID uint) (Note, error) {

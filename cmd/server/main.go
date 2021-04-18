@@ -2,29 +2,21 @@ package main
 
 import (
 	"fmt"
-	"notes-service/internal/database"
+	"github.com/gorilla/mux"
+	"notes-service/cmd/server/app"
+	"notes-service/internal/handler"
+	"notes-service/internal/note"
+
+	"notes-service/internal/logger"
 )
 
-type App struct {
-}
-
-func (app *App) Run() error {
-	db, err := database.InitDatabase()
-	if err != nil {
-		return err
-	}
-	err = database.MigrateDB(db)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
 func main() {
-	fmt.Println("Starting up notes service....")
-	app := &App{}
-	if err := app.Run(); err != nil {
-		panic(err)
+	globalLogger := logger.NewLogger()
+	app := app.NewApp(globalLogger, mux.NewRouter())
+	database, err := app.DefineDatabase()
+	if err != nil {
+		fmt.Println("Could not start")
 	}
-	fmt.Println("Started up successfully :)")
+	noteHandler := handler.NewHandler(note.NewService(database), globalLogger)
+	app.DefineRoutingAndServe(noteHandler)
 }
