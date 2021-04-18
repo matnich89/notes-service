@@ -10,7 +10,7 @@ import (
 )
 
 func TestHealth(t *testing.T) {
-	app := newTestApplication(t)
+	app := newTestApplication()
 	h := handler.NewHandler(note.NewService(&gorm.DB{}), logger.NewLogger())
 	app.DefineRouting(h)
 	ts := newTestServer(t, app.GetRouter())

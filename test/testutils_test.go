@@ -20,7 +20,7 @@ func newTestServer(t *testing.T, h http.Handler) *testServer {
 	return &testServer{ts}
 }
 
-func newTestApplication(t *testing.T) *app.App {
+func newTestApplication() *app.App {
 	return app.NewApp(logger.NewLogger(), mux.NewRouter())
 }
 
