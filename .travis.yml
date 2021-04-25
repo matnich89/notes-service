@@ -6,3 +6,6 @@ sudo: false
 go:
   - "1.16"
   - tip
+
+script:
+  - go test -v ./...
